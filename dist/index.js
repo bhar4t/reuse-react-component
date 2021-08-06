@@ -1,9 +1,7 @@
 import React from 'react';
 
 function ReuseableComponent() {
-  return /*#__PURE__*/React.createElement("div", {
-    className: "ReuseableComponent"
-  }, "Hello, World!");
+  return /*#__PURE__*/React.createElement("div", null, "Hello, World!");
 }
 
 export default ReuseableComponent;
