@@ -1,5 +1,7 @@
 # Serve your React Component by npm
 
+You can publish your own React component to npm, below you'll see how to publish your own component to npm step by step.
+
 1. Create a React application using
 
     ```
