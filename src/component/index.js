@@ -6,8 +6,7 @@ const styles = {
     width: 'auto',
     maxWidth: '50%',
     minWidth: '25%',
-    background: 'rgb(2,0,36)',
-    background: 'linear-gradient(144deg, rgba(2,0,36,1) 0%, rgba(121,9,90,1) 0%, rgba(95,53,126,1) 46%, rgba(0,212,255,1) 100%)',
+    background: 'linear-gradient(144deg, rgba(2,0,36, .7) 0%, rgba(121,9,90,.7) 0%, rgba(95,53,126,.7) 46%, rgba(0,212,255,.7) 100%)',
     display: 'flex',
     alignItems: 'center',
     zIndex: 999,
@@ -42,26 +41,27 @@ const COLORS = {
   NONE: '#c9c2c1'
 }
 
-function ReuseableComponent({ message, mode, open }) {
+function ReuseableComponent({ message, mode, open, timeout = 3000 }) {
   const [isOn, setIsOn] = React.useState(false)
-  let timeOutListener = () => {};
+  const [timeOutListener, setListener] = React.useState(() => {});
   React.useEffect(() => {
 
     if (open) {
       setIsOn(true);
-      timeOutListener = setTimeout(() => {
+      let unsubscribe = setTimeout(() => {
         setIsOn(false); 
-      }, 3000)
+      }, timeout)
+      setListener(unsubscribe)
     }
     return () => timeOutListener()
-  }, [open])
+  }, [open, timeOutListener, timeout])
 
   return (
     isOn
       ?
       <div style={styles.container}>
         <span style={styles.indicator(mode)} />
-        <span style={styles.message}>{message || 'No message'}</span>
+        <span style={styles.message}>{message || 'Default message'}</span>
       </div>
     :
       null
