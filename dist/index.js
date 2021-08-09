@@ -7,8 +7,6 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
-var _container;
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
@@ -23,16 +21,23 @@ function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Sy
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 var styles = {
-  container: (_container = {
+  container: {
     height: 50,
     width: 'auto',
     maxWidth: '50%',
     minWidth: '25%',
-    background: 'rgb(2,0,36)'
-  }, _defineProperty(_container, "background", 'linear-gradient(144deg, rgba(2,0,36,1) 0%, rgba(121,9,90,1) 0%, rgba(95,53,126,1) 46%, rgba(0,212,255,1) 100%)'), _defineProperty(_container, "display", 'flex'), _defineProperty(_container, "alignItems", 'center'), _defineProperty(_container, "zIndex", 999), _defineProperty(_container, "borderRadius", 20), _defineProperty(_container, "border", 'white double 8px'), _defineProperty(_container, "pointerEvents", 'none'), _defineProperty(_container, "position", 'fixed'), _defineProperty(_container, "bottom", 24), _defineProperty(_container, "right", 24), _container),
+    background: 'linear-gradient(144deg, rgba(2,0,36, .7) 0%, rgba(121,9,90,.7) 0%, rgba(95,53,126,.7) 46%, rgba(0,212,255,.7) 100%)',
+    display: 'flex',
+    alignItems: 'center',
+    zIndex: 999,
+    borderRadius: 20,
+    border: 'white double 8px',
+    pointerEvents: 'none',
+    position: 'fixed',
+    bottom: 24,
+    right: 24
+  },
   indicator: function indicator(color) {
     return {
       backgroundColor: (COLORS === null || COLORS === void 0 ? void 0 : COLORS[color]) || COLORS.NONE,
@@ -61,27 +66,33 @@ var COLORS = {
 function ReuseableComponent(_ref) {
   var message = _ref.message,
       mode = _ref.mode,
-      open = _ref.open;
+      open = _ref.open,
+      _ref$timeout = _ref.timeout,
+      timeout = _ref$timeout === void 0 ? 3000 : _ref$timeout;
 
   var _React$useState = _react.default.useState(false),
       _React$useState2 = _slicedToArray(_React$useState, 2),
       isOn = _React$useState2[0],
       setIsOn = _React$useState2[1];
 
-  var timeOutListener = function timeOutListener() {};
+  var _React$useState3 = _react.default.useState(function () {}),
+      _React$useState4 = _slicedToArray(_React$useState3, 2),
+      timeOutListener = _React$useState4[0],
+      setListener = _React$useState4[1];
 
   _react.default.useEffect(function () {
     if (open) {
       setIsOn(true);
-      timeOutListener = setTimeout(function () {
+      var unsubscribe = setTimeout(function () {
         setIsOn(false);
-      }, 3000);
+      }, timeout);
+      setListener(unsubscribe);
     }
 
     return function () {
       return timeOutListener();
     };
-  }, [open]);
+  }, [open, timeOutListener, timeout]);
 
   return isOn ? /*#__PURE__*/_react.default.createElement("div", {
     style: styles.container
@@ -89,7 +100,7 @@ function ReuseableComponent(_ref) {
     style: styles.indicator(mode)
   }), /*#__PURE__*/_react.default.createElement("span", {
     style: styles.message
-  }, message || 'No message')) : null;
+  }, message || 'Default message')) : null;
 }
 
 var _default = ReuseableComponent;
