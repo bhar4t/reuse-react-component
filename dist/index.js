@@ -75,24 +75,20 @@ function ReuseableComponent(_ref) {
       isOn = _React$useState2[0],
       setIsOn = _React$useState2[1];
 
-  var _React$useState3 = _react.default.useState(function () {}),
-      _React$useState4 = _slicedToArray(_React$useState3, 2),
-      timeOutListener = _React$useState4[0],
-      setListener = _React$useState4[1];
+  var id = NaN;
 
   _react.default.useEffect(function () {
     if (open) {
       setIsOn(true);
-      var unsubscribe = setTimeout(function () {
+      id = setTimeout(function () {
         setIsOn(false);
       }, timeout);
-      setListener(unsubscribe);
     }
 
     return function () {
-      return timeOutListener();
+      return clearTimeout(id);
     };
-  }, [open, timeOutListener, timeout]);
+  }, [open, timeout]);
 
   return isOn ? /*#__PURE__*/_react.default.createElement("div", {
     style: styles.container
@@ -100,7 +96,7 @@ function ReuseableComponent(_ref) {
     style: styles.indicator(mode)
   }), /*#__PURE__*/_react.default.createElement("span", {
     style: styles.message
-  }, message || 'Default message')) : null;
+  }, message || 'No message')) : null;
 }
 
 var _default = ReuseableComponent;

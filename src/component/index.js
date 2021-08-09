@@ -43,25 +43,24 @@ const COLORS = {
 
 function ReuseableComponent({ message, mode, open, timeout = 3000 }) {
   const [isOn, setIsOn] = React.useState(false)
-  const [timeOutListener, setListener] = React.useState(() => {});
-  React.useEffect(() => {
+  let id = NaN;
 
+  React.useEffect(() => {
     if (open) {
-      setIsOn(true);
-      let unsubscribe = setTimeout(() => {
-        setIsOn(false); 
+      setIsOn(true)
+      id = setTimeout(() => {
+        setIsOn(false)
       }, timeout)
-      setListener(unsubscribe)
     }
-    return () => timeOutListener()
-  }, [open, timeOutListener, timeout])
+    return () => clearTimeout(id)
+  }, [open, timeout])
 
   return (
     isOn
       ?
       <div style={styles.container}>
         <span style={styles.indicator(mode)} />
-        <span style={styles.message}>{message || 'Default message'}</span>
+        <span style={styles.message}>{message || 'No message'}</span>
       </div>
     :
       null
