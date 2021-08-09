@@ -1,4 +1,4 @@
-# Serve your React Component by npm
+# Serve React Snackbar by npm
 
 You can publish your own React component to npm, below you'll see how to publish your own component to npm step by step.
 
@@ -13,21 +13,21 @@ You can publish your own React component to npm, below you'll see how to publish
     npm:
 
     ```
-        npm i --save-dev @babel/cli @babel/preset-react
+        npm i --save-dev @babel/cli @babel/preset-react @babel/preset-env
         
         or
 
-        npm install --save-dev @babel/cli @babel/preset-react
+        npm install --save-dev @babel/cli @babel/preset-react @babel/preset-env
     ```
 
     yarn:
     
     ```
-        yarn add @babel/cli @babel/preset-react -D
+        yarn add @babel/cli @babel/preset-react @babel/preset-env -D 
 
         or 
 
-        yarn add @babel/cli @babel/preset-react --dev
+        yarn add @babel/cli @babel/preset-react @babel/preset-env --dev
     ```
 
 3. Add Babel react presets to your newly created application's package.json
@@ -35,7 +35,7 @@ You can publish your own React component to npm, below you'll see how to publish
     ```json
         "babel": {
             "presets": [
-            "@babel/preset-react"
+                "@babel/preset-react", "@babel/preset-env"
             ]
         },
     ```
@@ -67,7 +67,7 @@ You can publish your own React component to npm, below you'll see how to publish
         function ReuseableComponent() {
             return (
                 <div>
-                    Hello, World!
+                    // Your snackbar component
                 </div>
             );
         }
