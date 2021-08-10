@@ -41,7 +41,8 @@ const COLORS = {
   NONE: '#c9c2c1'
 }
 
-function ReuseableComponent({ message, mode, open, timeout = 3000 }) {
+function SnackBar({ message, mode, open, name = 'alert', timeout = 10000 }) {
+
   const [isOn, setIsOn] = React.useState(false)
   let id = NaN;
 
@@ -55,16 +56,15 @@ function ReuseableComponent({ message, mode, open, timeout = 3000 }) {
     return () => clearTimeout(id)
   }, [open, timeout])
 
-  return (
-    isOn
-      ?
-      <div style={styles.container}>
-        <span style={styles.indicator(mode)} />
+  if (isOn && message?.length > 0 && (mode.toUpperCase() === 'SUCCESS' || mode.toUpperCase() === 'ERROR' || mode.toUpperCase() === 'WARNING') && !isNaN(timeout)) {
+    return (
+      <div className={`alert ${name}-${mode}`.toLowerCase()} style={styles.container}>
+        <span style={styles.indicator(mode.toUpperCase())} />
         <span style={styles.message}>{message || 'No message'}</span>
       </div>
-    :
-      null
-  );
+    )
+  } 
+  return null
 }
 
-export default ReuseableComponent;
+export default SnackBar;

@@ -8,7 +8,7 @@ install:
        npm i reuse-react-snackbar
 
 
-![React-Snackbar](./snackbar.png "React-Snackbar")
+![React-Snackbar](https://raw.githubusercontent.com/bhar4t/reuse-react-component/main/snackbar.png "React-Snackbar")
 
 
 |   Props       |       Value (Default/Options)         |     Requirement   |
@@ -17,6 +17,7 @@ install:
 |   mode        |   String - WARNING/ERROR/SUCCESS      |     Mandatory     |
 |   open        |   Boolean (false)                     |     Mandatory     |
 |   timeout     |   1000-10000 (3000)                   |     Optional      |
+|   position    |   COMING SOON                                             |
 
 
 import:

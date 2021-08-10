@@ -63,12 +63,14 @@ var COLORS = {
   NONE: '#c9c2c1'
 };
 
-function ReuseableComponent(_ref) {
+function SnackBar(_ref) {
   var message = _ref.message,
       mode = _ref.mode,
       open = _ref.open,
+      _ref$name = _ref.name,
+      name = _ref$name === void 0 ? 'alert' : _ref$name,
       _ref$timeout = _ref.timeout,
-      timeout = _ref$timeout === void 0 ? 3000 : _ref$timeout;
+      timeout = _ref$timeout === void 0 ? 10000 : _ref$timeout;
 
   var _React$useState = _react.default.useState(false),
       _React$useState2 = _slicedToArray(_React$useState, 2),
@@ -90,14 +92,19 @@ function ReuseableComponent(_ref) {
     };
   }, [open, timeout]);
 
-  return isOn ? /*#__PURE__*/_react.default.createElement("div", {
-    style: styles.container
-  }, /*#__PURE__*/_react.default.createElement("span", {
-    style: styles.indicator(mode)
-  }), /*#__PURE__*/_react.default.createElement("span", {
-    style: styles.message
-  }, message || 'No message')) : null;
+  if (isOn && (message === null || message === void 0 ? void 0 : message.length) > 0 && (mode.toUpperCase() === 'SUCCESS' || mode.toUpperCase() === 'ERROR' || mode.toUpperCase() === 'WARNING') && !isNaN(timeout)) {
+    return /*#__PURE__*/_react.default.createElement("div", {
+      className: "alert ".concat(name, "-").concat(mode).toLowerCase(),
+      style: styles.container
+    }, /*#__PURE__*/_react.default.createElement("span", {
+      style: styles.indicator(mode.toUpperCase())
+    }), /*#__PURE__*/_react.default.createElement("span", {
+      style: styles.message
+    }, message || 'No message'));
+  }
+
+  return null;
 }
 
-var _default = ReuseableComponent;
+var _default = SnackBar;
 exports.default = _default;

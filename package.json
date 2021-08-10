@@ -1,8 +1,20 @@
 {
   "name": "reuse-react-snackbar",
-  "version": "0.1.6",
+  "version": "0.1.10",
   "main": "./dist/index.js",
   "private": false,
+  "url" : "https://github.com/bhar4t",
+  "email" : "bhar4t@outlook.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bhar4t/reuse-react-component"
+  },
+  "keywords": [
+    "React",
+    "SnackBar",
+    "Component"
+  ],
+  "author": "Bharat Sahu",
   "babel": {
     "presets": [
       "@babel/preset-react",
