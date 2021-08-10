@@ -4,7 +4,6 @@ Use very elegant, automatically dissapear after given timeout, React Snackbar as
 
 install:
 
-    
        npm i reuse-react-snackbar
 
 
@@ -22,14 +21,12 @@ install:
 
 import:
 
-    
         import SnackBar from 'reuse-react-snackbar'
     
 
 How to use:
-
-    
-        
-        <SnackBar message="You've added file Successfully" mode="SUCCESS" open={true} />
+```js
+    <SnackBar message="You've added file Successfully" mode="SUCCESS" open={true} />
+```
 
     

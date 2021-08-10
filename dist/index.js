@@ -70,7 +70,7 @@ function SnackBar(_ref) {
       _ref$name = _ref.name,
       name = _ref$name === void 0 ? 'alert' : _ref$name,
       _ref$timeout = _ref.timeout,
-      timeout = _ref$timeout === void 0 ? 10000 : _ref$timeout;
+      timeout = _ref$timeout === void 0 ? 3000 : _ref$timeout;
 
   var _React$useState = _react.default.useState(false),
       _React$useState2 = _slicedToArray(_React$useState, 2),

@@ -41,7 +41,7 @@ const COLORS = {
   NONE: '#c9c2c1'
 }
 
-function SnackBar({ message, mode, open, name = 'alert', timeout = 10000 }) {
+function SnackBar({ message, mode, open, name = 'alert', timeout = 3000 }) {
 
   const [isOn, setIsOn] = React.useState(false)
   let id = NaN;
