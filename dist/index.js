@@ -7,6 +7,8 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
@@ -45,10 +47,10 @@ var styles = {
   indicator: function indicator(color) {
     return {
       backgroundColor: (COLORS === null || COLORS === void 0 ? void 0 : COLORS[color]) || COLORS.NONE,
-      borderRadius: 25,
-      height: 16,
-      width: 20,
-      margin: '8px 5px 5px 10px',
+      borderRadius: 50,
+      height: '1.4em',
+      width: '1.9em',
+      margin: '0px 5px 0px 10px',
       border: 'solid white 2px'
     };
   },
@@ -57,8 +59,9 @@ var styles = {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     color: 'white',
-    fontSize: '2vh',
-    width: '-webkit-fill-available'
+    fontSize: '.9em',
+    width: '-webkit-fill-available',
+    textAlign: 'left'
   },
   actionButton: {
     margin: '0px 8px',
@@ -71,70 +74,91 @@ var styles = {
     borderRadius: 4,
     border: 'solid white 2px'
   }
-};
+}; // Colors for different status.
+
 var COLORS = {
   WARNING: '#ffbc5e',
   SUCCESS: '#6cff5e',
   ERROR: '#ff5e5e',
   NONE: '#c9c2c1'
-};
+}; // Base component with default parameter values.
 
 function SnackBar(_ref2) {
-  var message = _ref2.message,
+  var action = _ref2.action,
+      message = _ref2.message,
       mode = _ref2.mode,
       open = _ref2.open,
-      _ref2$className = _ref2.className,
-      className = _ref2$className === void 0 ? 'alert' : _ref2$className,
-      _ref2$timeout = _ref2.timeout,
-      timeout = _ref2$timeout === void 0 ? 3000 : _ref2$timeout,
-      action = _ref2.action,
+      style = _ref2.style,
       _ref2$actionLabel = _ref2.actionLabel,
       actionLabel = _ref2$actionLabel === void 0 ? 'Okay' : _ref2$actionLabel,
+      _ref2$className = _ref2.className,
+      className = _ref2$className === void 0 ? 'alert' : _ref2$className,
       _ref2$bottom = _ref2.bottom,
       bottom = _ref2$bottom === void 0 ? true : _ref2$bottom,
       _ref2$right = _ref2.right,
       right = _ref2$right === void 0 ? true : _ref2$right,
-      style = _ref2.style;
+      _ref2$timeout = _ref2.timeout,
+      timeout = _ref2$timeout === void 0 ? 3000 : _ref2$timeout;
 
   var _React$useState = _react.default.useState(false),
       _React$useState2 = _slicedToArray(_React$useState, 2),
       isOn = _React$useState2[0],
       setIsOn = _React$useState2[1];
 
-  var id = NaN;
-
   _react.default.useEffect(function () {
+    var id = NaN;
+
     if (open) {
-      setIsOn(true);
+      setIsOn(true); // Creating timeout listener for removal of component.
+
       id = setTimeout(function () {
         setIsOn(false);
       }, timeout);
-    }
+    } // Clearing timeout to avoid memory leak.
+
 
     return function () {
       return clearTimeout(id);
     };
-  }, [open, timeout]);
+  }, [open, timeout]); // Validating the required props
 
-  if (isOn && (message === null || message === void 0 ? void 0 : message.length) > 0 && (mode.toUpperCase() === 'SUCCESS' || mode.toUpperCase() === 'ERROR' || mode.toUpperCase() === 'WARNING') && !isNaN(timeout)) {
-    return /*#__PURE__*/_react.default.createElement("div", {
-      className: className,
-      style: Object.assign({}, styles.container(bottom, right), (style === null || style === void 0 ? void 0 : style.containerStyle) || {})
-    }, /*#__PURE__*/_react.default.createElement("span", {
-      style: styles.indicator(mode.toUpperCase())
-    }), /*#__PURE__*/_react.default.createElement("span", {
-      style: Object.assign({}, styles.message, (style === null || style === void 0 ? void 0 : style.textStyle) || {})
-    }, message || 'No message'), typeof action === 'function' && (actionLabel === null || actionLabel === void 0 ? void 0 : actionLabel.length) < 25 ? /*#__PURE__*/_react.default.createElement("button", {
-      style: Object.assign({}, styles.actionButton, (style === null || style === void 0 ? void 0 : style.buttonStyle) || {}),
-      onClick: function onClick(e) {
-        e.preventDefault();
-        action(e);
-      }
-    }, actionLabel) : null);
-  }
+
+  if (isOn && (message === null || message === void 0 ? void 0 : message.length) > 0 && ((mode === null || mode === void 0 ? void 0 : mode.toUpperCase()) === 'SUCCESS' || (mode === null || mode === void 0 ? void 0 : mode.toUpperCase()) === 'ERROR' || (mode === null || mode === void 0 ? void 0 : mode.toUpperCase()) === 'WARNING') && !isNaN(timeout)) {
+    return (
+      /*#__PURE__*/
+      // Container, Overrides CSS otherwise applies default inline CSS.
+      _react.default.createElement("div", {
+        className: className,
+        style: Object.assign({}, styles.container(bottom, right), (style === null || style === void 0 ? void 0 : style.containerStyle) || {})
+      }, /*#__PURE__*/_react.default.createElement("span", {
+        style: styles.indicator(mode === null || mode === void 0 ? void 0 : mode.toUpperCase())
+      }), /*#__PURE__*/_react.default.createElement("span", {
+        style: Object.assign({}, styles.message, (style === null || style === void 0 ? void 0 : style.textStyle) || {})
+      }, message || 'No message'), typeof action === 'function' && (actionLabel === null || actionLabel === void 0 ? void 0 : actionLabel.length) < 25 && /*#__PURE__*/_react.default.createElement("button", {
+        style: Object.assign({}, styles.actionButton, (style === null || style === void 0 ? void 0 : style.buttonStyle) || {}),
+        onClick: function onClick(e) {
+          e.preventDefault();
+          action(e);
+        }
+      }, actionLabel))
+    );
+  } // Closed snackbar value or invalid props
+
 
   return null;
 }
 
+SnackBar.propTypes = {
+  action: _propTypes.default.func,
+  actionLabel: _propTypes.default.string,
+  bottom: _propTypes.default.bool,
+  className: _propTypes.default.string,
+  right: _propTypes.default.bool,
+  style: _propTypes.default.object,
+  timeout: _propTypes.default.number,
+  message: _propTypes.default.string.isRequired,
+  open: _propTypes.default.bool.isRequired,
+  mode: _propTypes.default.oneOf(['WARNING', 'SUCCESS', 'ERROR']).isRequired
+};
 var _default = SnackBar;
 exports.default = _default;

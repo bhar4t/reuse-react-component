@@ -26,7 +26,7 @@ or
 |   message     |   String (No message)                 |     Mandatory     |
 |   mode        |   String - WARNING/ERROR/SUCCESS      |     Mandatory     |
 |   open        |   Boolean (false)                     |     Mandatory     |
-|   timeout     |   1000-10000 (3000)                   |     Optional      |
+|   timeout     |   Number (3000) - 1000 to 10000       |     Optional      |
 |   bottom      |   Boolean (true)                      |     Optional      |
 |   right       |   Boolean (true)                      |     Optional      |
 |   action      |   Callback function (clickEvt => {})  |     Optional      |
@@ -72,4 +72,16 @@ Output
 
 ![React-Snackbar-Styled](https://raw.githubusercontent.com/bhar4t/reuse-react-component/main/styled.png "React-Snackbar-Styled")
 
-    
+### Action
+
+```js
+    <SnackBar
+        message="You've added file Successfully"
+        mode="SUCCESS"
+        open={true}
+        actionLabel="Done!"
+        action={(e) => {
+            console.log(`Clicked on Done!`, e)
+        }}
+    />
+```

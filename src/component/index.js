@@ -1,4 +1,5 @@
-import React from "react";
+import React from "react"
+import PropTypes from 'prop-types'
 
 const styles = {
   container: (bottom, right) => ({
@@ -19,10 +20,10 @@ const styles = {
   }),
   indicator: (color) => ({
     backgroundColor: COLORS?.[color] || COLORS.NONE,
-    borderRadius: 25,
-    height: 16,
-    width: 20,
-    margin: '8px 5px 5px 10px',
+    borderRadius: 50,
+    height: '1.4em',
+    width: '1.9em',
+    margin: '0px 5px 0px 10px',
     border: 'solid white 2px'
   }),
   message: {
@@ -30,8 +31,9 @@ const styles = {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     color: 'white',
-    fontSize: '2vh',
-    width: '-webkit-fill-available'
+    fontSize: '.9em',
+    width: '-webkit-fill-available',
+    textAlign: 'left',
   },
   actionButton: {
     margin: '0px 8px',
@@ -46,6 +48,7 @@ const styles = {
   }
 }
 
+// Colors for different status.
 const COLORS = {
   WARNING: '#ffbc5e',
   SUCCESS: '#6cff5e',
@@ -53,53 +56,76 @@ const COLORS = {
   NONE: '#c9c2c1'
 }
 
+// Base component with default parameter values.
 function SnackBar({
+  action,
   message,
   mode,
   open,
-  className = 'alert',
-  timeout = 3000,
-  action,
+  style,
   actionLabel= 'Okay',
+  className = 'alert',
   bottom = true,
   right = true,
-  style
+  timeout = 3000,
 }) {
 
   const [isOn, setIsOn] = React.useState(false)
-  let id = NaN;
 
   React.useEffect(() => {
+    let id = NaN
     if (open) {
       setIsOn(true)
+
+      // Creating timeout listener for removal of component.
       id = setTimeout(() => {
         setIsOn(false)
       }, timeout)
     }
+
+    // Clearing timeout to avoid memory leak.
     return () => clearTimeout(id)
   }, [open, timeout])
 
-  if (isOn && message?.length > 0 && (mode.toUpperCase() === 'SUCCESS' || mode.toUpperCase() === 'ERROR' || mode.toUpperCase() === 'WARNING') && !isNaN(timeout)) {
+  // Validating the required props
+  if (isOn && message?.length > 0 && (mode?.toUpperCase() === 'SUCCESS' || mode?.toUpperCase() === 'ERROR' || mode?.toUpperCase() === 'WARNING') && !isNaN(timeout)) {
     return (
+      // Container, Overrides CSS otherwise applies default inline CSS.
       <div className={className} style={Object.assign({}, styles.container(bottom, right), style?.containerStyle || {})}>
-        <span style={styles.indicator(mode.toUpperCase())} />
+        {/* Status indicator, Overrides CSS otherwise applies default inline CSS. */}
+        <span style={styles.indicator(mode?.toUpperCase())} />
+        {/* Message, Overrides CSS otherwise applies default inline CSS. */}
         <span style={Object.assign({}, styles.message, style?.textStyle || {})}>
           {message || 'No message'}
         </span>
-        {typeof action === 'function' && actionLabel?.length < 25
-          ?
-            <button
-                style={Object.assign({}, styles.actionButton, style?.buttonStyle || {})}
-                onClick={(e) => { e.preventDefault(); action(e); }}
-              >
-                {actionLabel}
-              </button>
-            :
-              null}
+        {(typeof action === 'function' && actionLabel?.length < 25)
+          &&
+          <button
+              style={Object.assign({}, styles.actionButton, style?.buttonStyle || {})}
+              onClick={(e) => { e.preventDefault(); action(e); }}
+            >
+              {actionLabel}
+          </button>
+        }
       </div>
     )
-  } 
+  }
+  // Closed snackbar value or invalid props
   return null
+}
+
+SnackBar.propTypes = {
+  action: PropTypes.func,
+  actionLabel: PropTypes.string,
+  bottom: PropTypes.bool,
+  className: PropTypes.string,
+  right: PropTypes.bool,
+  style: PropTypes.object,
+  timeout: PropTypes.number,
+
+  message: PropTypes.string.isRequired,
+  open: PropTypes.bool.isRequired,
+  mode: PropTypes.oneOf(['WARNING', 'SUCCESS', 'ERROR']).isRequired,
 }
 
 export default SnackBar;

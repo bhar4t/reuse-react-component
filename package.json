@@ -1,10 +1,10 @@
 {
   "name": "reuse-react-snackbar",
-  "version": "0.1.16",
-  "main": "./dist/index.js",
+  "version": "0.1.20",
+  "main": "./index.js",
   "private": false,
-  "url" : "https://github.com/bhar4t",
-  "email" : "bhar4t@outlook.com",
+  "url": "https://github.com/bhar4t",
+  "email": "bhar4t@outlook.com",
   "repository": {
     "type": "git",
     "url": "https://github.com/bhar4t/reuse-react-component"
@@ -22,6 +22,7 @@
     ]
   },
   "peerDependencies": {
+    "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3"
@@ -31,7 +32,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "publish:npm": "rmdir /s /q dist && mkdir dist && babel .\\src\\component -d dist --copy-files"
+    "publish:npm": "rmdir /s /q dist && mkdir dist && babel .\\src\\component -d dist --copy-files && copy README.md .\\dist && copy package.json .\\dist"
   },
   "eslintConfig": {
     "extends": [
