@@ -1,6 +1,6 @@
 {
   "name": "reuse-react-snackbar",
-  "version": "0.1.14",
+  "version": "0.1.16",
   "main": "./dist/index.js",
   "private": false,
   "url" : "https://github.com/bhar4t",

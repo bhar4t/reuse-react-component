@@ -1,8 +1,14 @@
 # React Snackbar
 
-Use very elegant, automatically dissapear after given timeout, React Snackbar as your component in React Application.
+Use very elegant fully customisable, with automatically disappearable, React Snackbar in your React application.
 
-install:
+- Customisable CSS (inline or by custom classname)
+- Manage disappear time
+- Multiple Modes
+- Show in any place
+- Action Handling
+
+### install
 
        npm i reuse-react-snackbar
 
@@ -10,7 +16,7 @@ install:
 ![React-Snackbar](https://raw.githubusercontent.com/bhar4t/reuse-react-component/main/snackbar.png "React-Snackbar")
 
 
-|   Props       |       Detail (Default/Options)         |     Requirement   |
+|   Props       |       Detail (Default/Options)        |     Requirement   |
 |---------------|---------------------------------------|-------------------|
 |   message     |   String (No message)                 |     Mandatory     |
 |   mode        |   String - WARNING/ERROR/SUCCESS      |     Mandatory     |
@@ -24,44 +30,41 @@ install:
 |   style       |   Object                              |     Optional      |
 
 
-import:
+### import
 
         import SnackBar from 'reuse-react-snackbar'
     
 
-How to use:
+### Usage
 
 ```js
     <SnackBar message="You've added file Successfully" mode="SUCCESS" open={true} />
 ```
 
-How to apply inline CSS:
+### Inline CSS
 
 ```js
     <SnackBar
-    message="You've added file Successfully"
-    mode="SUCCESS"
-    open={true}
-    style={{
-        textStyle: {
-          color: 'white',
-          fontSize: '3vh',
-        },
-        buttonStyle: {
-          backgroundColor: 'white',
-          color: 'black',
-          border: 'solid black 2px'
-        },
-        containerStyle: {
-          background: 'grey',
-          borderRadius: 'none',
-          border: 'solid black 0px',
-          boxShadow: 'black 6px 7px 12px -4px'
-        }
-      }}
-    />
+        message="You've added file Successfully"
+        mode="SUCCESS"
+        open={true}
+        style={{
+            textStyle: {
+                color: 'white',
+            },
+            buttonStyle: {
+                backgroundColor: 'white',
+                color: 'black',
+            },
+            containerStyle: {
+                background: 'grey',
+                boxShadow: 'black 6px 7px 12px -4px'
+            }
+        }}
+        />
 ```
-output:
+### Output
+
 ![React-Snackbar-Styled](https://raw.githubusercontent.com/bhar4t/reuse-react-component/main/styled.png "React-Snackbar-Styled")
 
     
