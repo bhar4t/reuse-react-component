@@ -1,6 +1,6 @@
 # React Snackbar
 
-Use very elegant fully customisable, with automatically disappearable, React Snackbar in your React application.
+Use very elegant fully customisable, with automatically disappearable snackbar in your React application.
 
 - Customisable CSS (inline or by custom classname)
 - Manage disappear time
@@ -12,6 +12,11 @@ Use very elegant fully customisable, with automatically disappearable, React Sna
 
        npm i reuse-react-snackbar
 
+or
+
+       yarn add reuse-react-snackbar
+
+### Demo Screenshot
 
 ![React-Snackbar](https://raw.githubusercontent.com/bhar4t/reuse-react-component/main/snackbar.png "React-Snackbar")
 
@@ -63,7 +68,7 @@ Use very elegant fully customisable, with automatically disappearable, React Sna
         }}
         />
 ```
-### Output
+Output
 
 ![React-Snackbar-Styled](https://raw.githubusercontent.com/bhar4t/reuse-react-component/main/styled.png "React-Snackbar-Styled")
 
