@@ -1,7 +1,7 @@
 import React from "react";
 
 const styles = {
-  container: {
+  container: (bottom, right) => ({
     height: 50,
     width: 'auto',
     maxWidth: '50%',
@@ -14,14 +14,14 @@ const styles = {
     border: 'white double 8px',
     pointerEvents: 'none',
     position: 'fixed',
-    bottom: 24,
-    right: 24,
-  },
+    [bottom ? 'bottom' : 'top']: 24,
+    [right ? 'right' : 'left']: 24,
+  }),
   indicator: (color) => ({
     backgroundColor: COLORS?.[color] || COLORS.NONE,
     borderRadius: 25,
-    height: '2.5vh',
-    width: '2.5vh',
+    height: 16,
+    width: 20,
     margin: '8px 5px 5px 10px',
     border: 'solid white 2px'
   }),
@@ -31,6 +31,18 @@ const styles = {
     textOverflow: 'ellipsis',
     color: 'white',
     fontSize: '2vh',
+    width: '-webkit-fill-available'
+  },
+  actionButton: {
+    margin: '0px 8px',
+    alignSelf: 'center',
+    justifySelf: 'end',
+    backgroundColor: 'black',
+    color: 'white',
+    pointerEvents: 'auto',
+    padding: 4,
+    borderRadius: 4,
+    border: 'solid white 2px'
   }
 }
 
@@ -41,7 +53,18 @@ const COLORS = {
   NONE: '#c9c2c1'
 }
 
-function SnackBar({ message, mode, open, name = 'alert', timeout = 3000 }) {
+function SnackBar({
+  message,
+  mode,
+  open,
+  className = 'alert',
+  timeout = 3000,
+  action,
+  actionLabel= 'Okay',
+  bottom = true,
+  right = true,
+  style
+}) {
 
   const [isOn, setIsOn] = React.useState(false)
   let id = NaN;
@@ -58,9 +81,21 @@ function SnackBar({ message, mode, open, name = 'alert', timeout = 3000 }) {
 
   if (isOn && message?.length > 0 && (mode.toUpperCase() === 'SUCCESS' || mode.toUpperCase() === 'ERROR' || mode.toUpperCase() === 'WARNING') && !isNaN(timeout)) {
     return (
-      <div className={`alert ${name}-${mode}`.toLowerCase()} style={styles.container}>
+      <div className={className} style={Object.assign({}, styles.container(bottom, right), style?.containerStyle || {})}>
         <span style={styles.indicator(mode.toUpperCase())} />
-        <span style={styles.message}>{message || 'No message'}</span>
+        <span style={Object.assign({}, styles.message, style?.textStyle || {})}>
+          {message || 'No message'}
+        </span>
+        {typeof action === 'function' && actionLabel?.length < 25
+          ?
+            <button
+                style={Object.assign({}, styles.actionButton, style?.buttonStyle || {})}
+                onClick={(e) => { e.preventDefault(); action(e); }}
+              >
+                {actionLabel}
+              </button>
+            :
+              null}
       </div>
     )
   } 

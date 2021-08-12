@@ -1,6 +1,6 @@
 {
   "name": "reuse-react-snackbar",
-  "version": "0.1.11",
+  "version": "0.1.14",
   "main": "./dist/index.js",
   "private": false,
   "url" : "https://github.com/bhar4t",
@@ -20,11 +20,6 @@
       "@babel/preset-react",
       "@babel/preset-env"
     ]
-  },
-  "dependencies": {
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-scripts": "4.0.3"
   },
   "peerDependencies": {
     "react": "^17.0.2",
