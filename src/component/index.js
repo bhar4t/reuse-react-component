@@ -110,7 +110,7 @@ function SnackBar({
       </div>
     )
   }
-  // Closed snackbar value or invalid props
+  // Removing snackbar by input props or invalid props
   return null
 }
 
